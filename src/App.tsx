@@ -1,5 +1,6 @@
 import 'app.scss';
+import { HomePage } from 'pages/Home';
 
-const App = () => <div>React Boilerplate</div>;
+const App = () => <HomePage />;
 
 export default App;
