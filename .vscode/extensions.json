@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "rvest.vs-code-prettier-eslint",
+    "stylelint.vscode-stylelint",
+    "sibiraj-s.vscode-scss-formatter",
+    "gencer.html-slim-scss-css-class-completion",
+    "wix.vscode-import-cost"
+  ]
+}

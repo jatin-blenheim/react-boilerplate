@@ -1,0 +1,170 @@
+# React boilerplate
+
+## Overview
+
+This project is created with `npm create vite` using following configuration
+
+> Project name: react-boilerplate\
+> Select a framework: React\
+> Select a variant: Typescript + SWC
+
+<br/>
+
+## Quick Start
+
+To run the project, run following commands
+
+`npm install`\
+`npm start`
+
+> Note: There is a sample project in `sample` branch. Also note, to spin up storybook, `npm run storybook` can be used
+
+<br/>
+
+## Quick Setup Guide
+
+- Project has list of recommended extensions that can be installed
+
+- Recommended settings.json update for ease of use
+
+```json
+"[jsonc]": {
+        "editor.defaultFormatter": "rvest.vs-code-prettier-eslint"
+    },
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": true,
+        "source.fixAll.stylelint": true
+    },
+    "eslint.validate": [
+        "javascript"
+    ],
+    "eslint.codeActionsOnSave.rules": null,
+    "window.zoomLevel": 1,
+    "git.autofetch": true,
+    "stylelint.validate": [
+        "css",
+        "scss"
+    ],
+    "[scss]": {
+        "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
+    },
+    "editor.formatOnSave": true,
+```
+
+- In windows machine, run `git config --global core.autocrlf input` to fix line endings error on clone
+
+> Note: The above settings will ensure errors are prompted when working on file, and save will fix autofixable lint and format errors.
+
+<br/>
+
+## Cleanup steps after clone
+
+- Update name in `package.json` and run `npm install` so that `package-lock.json` file is updated
+- Update title and icon in `index.html`
+- Update `.env` files to update API base endpoint
+- Update README (refer sample branch)
+
+<br/>
+
+## Tips and Suggestions
+
+> **ENV Variables**
+>
+> - Variables can be accessed using `import.meta.env.{variablename}`
+> - Variable name must start with `APP_` to be available else it returns undefined. e.g.
+>
+>   if your `.env` file looks like\
+>    `API_BASE_URL = www.blenheimchalcot.com`\
+>    `APP_API_BASE_URL = www.blenheimchalcot.com`\
+>
+>   when you try to access the following is the output\
+>   `import.meta.env.API_BASE_URL --> undefined`\
+>   `import.meta.env.APP_API_BASE_URL --> www.blenheimchalcot.com`
+>
+> - To change the prefix, change `envPrefix` in file `vite.config.ts` in root of project directory
+
+> **Linting**
+>
+> - This project uses `eslint` to lint `.js, .ts, .tsx` files, `stylelint` to lint `.css, scss` files.
+> - `eslint-plugin-sonar` is added to perform static code analysis
+> - Extended `airbnb` style guide in eslint
+>
+> The above can be checked with help of extension at the time of coding, or cli commands from running respective script from package.json. Prefer not to disable eslint for lines or files unless required.
+
+> **Git Hooks**
+>
+> Added husky and lint-staged and configured to check following in sequence before commit is done
+>
+> - Check typescript (tsc)
+> - Run lint fixes
+> - Run related unit test cases for all staged files
+>
+> If any of above check fails, the commit fails and throws respective error. Prefer to avoud use of `--no-verify` flag at the time of commit
+
+> **Utils and API**
+>
+> Please refer sample project for usage sample of createAPI.
+> Currently there are storage utils in utils folder which can be used to set and get values from session and local storage. This will eventually grow as more devs contribute to the common used utils
+
+<br />
+
+## Coding Standards and Guidelines
+
+- Naming Convention
+
+  - Components files/folder should be in PascalCase
+  - Helper files should be in camelCase
+  - Variable names preferred in camelCase
+  - Test files can be named as `{ComponentName}.test.tsx` or `{helperFile}.test.ts` i.e. following similar naming with `.text.tsx/ts` suffix.
+
+    <br/>
+
+- File and Folder arrangement (Suggested)
+
+  - Any static assets that does not require processing goes in public folder in root directory of the project
+  - Assets that requires processing goes inside `src/assets`
+  - All reusable components goes inside `src/components`. Prefer having folder instead of file for including related `test`, `css` and other related files
+  - All Modules can be a folder inside `src/pages`
+  - Utility function can be grouped by their utilities and kept in respective files under `src/utils` like `src/utils/storageUtils`
+  - Configurations goes in `src/config` in either `ts` or `json` files.
+  - Global constants (e.g list of countries for dropdown, etc) can be in `src/constants` folder as `ts` or `json` files.
+  - Global style variables(e.g. colors, spaces ...) and common style utils can go in `src/style` folder and then be imported and used as requried across various scss files
+  - Prefer not having more 3 or 4 levels of folder nesting.
+  - Create multiple files instead of writing a big file, Each with a single responsibility or single component.
+  - Prefer style and test file inside same module folder i.e.
+    ```
+    \-- src
+        \-- Pages
+            \-- Home
+              +-- data.ts
+              +-- index.tsx
+              +-- Home.test.tsx
+              +-- home.scss
+              \-- subComponents
+                +-- subComponent1.tsx
+                +-- subComponent2.tsx
+    ```
+    `data.ts` - Static Data or Constants can go here\
+    `Home.test.tsx` - Test cases for the module\
+    `subComponents` - Non reusable components goes here\
+    `Home.types.ts` - Types can be added in this file
+    `home.scss` - Styles for module
+
+<br/>
+
+- Styling
+
+  - Avoid Inline CSS as and when possible (a CSS class should be created when there are more than 2 CSS attributes).
+  - Prefer using BEM methodology
+  - Prefer using SCSS
+
+  <br/>
+
+- General
+  - Use DRY Principle (Don't repeat yourself)
+  - Prefer absolute imports for folders and files inside src
+  - Prefer using latest feature
+    - use only let and const not var
+    - use arrow functions
+    - use optional chaining (if objects can be null/undefined..) etc. as and when applicable.
+  - Maintain data-qa tags on interactive elements for automation testing support
